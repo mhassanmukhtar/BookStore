@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace BookStoreConsole.Commands
 {
-    internal class BookCommands : IBookCommands
+    public class BookCommands : IBookCommands
     {
         private readonly IBookCommandsRepository _repository;
         public BookCommands(IBookCommandsRepository repository)
         {
             _repository = repository;
         }
-        public void DeleteBook(Book book)
+        public bool DeleteBook(Guid bookId)
         {
-            throw new NotImplementedException();
+           return _repository.DeleteBook(bookId);
         }
 
         public void SaveBook(Book book)

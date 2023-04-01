@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookStoreConsole.Commands
 {
-    internal interface IBookCommands
+    public interface IBookCommands
     {
         void SaveBook(Book book);
         void UpdateBook(Book book,Guid id);
-        void DeleteBook(Book book);
+        bool DeleteBook(Guid bookId);
     }
 }

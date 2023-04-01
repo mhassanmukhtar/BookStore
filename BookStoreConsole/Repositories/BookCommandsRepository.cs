@@ -8,8 +8,27 @@ using System.Threading.Tasks;
 
 namespace BookStoreConsole.Repositories
 {
-    internal class BookCommandsRepository:IBookCommandsRepository
+    public class BookCommandsRepository:IBookCommandsRepository
     {
+        public bool DeleteBook(Guid id)
+        {
+            using (var result = new BookStoreContext())
+            {
+                var bookResponse = result.books.FirstOrDefault(x => x.Id == id);
+                if (bookResponse != null)
+                {
+                    var isDeleted = result.books.Remove(bookResponse);
+                    result.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+              
+            }
+        }
+
         public void SaveBook(Book book)
         {
             book.Id = new Guid();
