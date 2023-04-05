@@ -12,14 +12,14 @@ namespace BookStoreAPI.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        BookQueries bookQueries = new BookQueries(new BookQueriesRepository());
-        BookCommands bookCommands = new BookCommands(new BookCommandsRepository());
+       private BookQueries _bookQueries = new BookQueries(new BookQueriesRepository());
+       private BookCommands _bookCommands = new BookCommands(new BookCommandsRepository());
         // GET: api/<BookController>
         [HttpGet]
         public List<Book> Get()
         {
             List<Book> books = new List<Book>();
-            var booksresponse = bookQueries.FindAll();
+            var booksresponse = _bookQueries.FindAll();
             foreach (var b in booksresponse)
             {
                 Book book = new Book();
@@ -35,9 +35,20 @@ namespace BookStoreAPI.Controllers
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Book Get(Guid id)
         {
-            return "value";
+            var booksresponse = _bookQueries.FindByID(id);
+            Book book = new Book
+            {
+                Id = booksresponse.Id,
+                name = booksresponse.name,
+                description = booksresponse.description,
+                author = booksresponse.author,
+                quantity = booksresponse.quantity,
+                IsBooked = booksresponse.IsBooked
+            };
+
+            return book;
         }
 
         // POST api/<BookController>
@@ -51,20 +62,35 @@ namespace BookStoreAPI.Controllers
             book.author = values.author;
             book.quantity = values.quantity;
 
-            bookCommands.SaveBook(book);
+            _bookCommands.SaveBook(book);
         }
 
         // PUT api/<BookController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] Book values)
         {
+            BookStoreConsole.Models.Book bookObj = new BookStoreConsole.Models.Book();
+            bookObj.Id = values.Id;
+            bookObj.name = values.name;
+            bookObj.title = values.title;
+            bookObj.description = values.description;
+            bookObj.author = values.author;
+            bookObj.quantity = values.quantity;
+
+            _bookCommands.UpdateBook(bookObj);
+        }
+
+        [HttpPut("{id}")]
+        public void Put(Guid id)
+        {
+            //bookCommands.UpdateBook(id);
         }
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-            bool isDeleted = bookCommands.DeleteBook(id);
+            bool isDeleted = _bookCommands.DeleteBook(id);
         }
     }
 }

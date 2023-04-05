@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace BookStoreConsole.Repositories
 {
-    public interface IBookCommandsRepository
+    public interface IBookingCommandsRepository
     {
-        void SaveBook(Book book);
-        void UpdateBook(Book book);
-        bool DeleteBook(Guid id);
-
-        bool BookIt(Guid id);
+        void SaveBooking(Booking book);
+        void UpdateBooking(Booking book);
+        bool DeleteBooking(Guid id);
     }
 }

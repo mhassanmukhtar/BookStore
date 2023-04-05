@@ -10,6 +10,14 @@ namespace BookStoreConsole.Repositories
 {
     public class BookCommandsRepository:IBookCommandsRepository
     {
+        public bool BookIt(Guid id)
+        {
+            using (var result = new BookStoreContext())
+            {
+                return true;
+            }
+        }
+
         public bool DeleteBook(Guid id)
         {
             using (var result = new BookStoreContext())
@@ -39,13 +47,11 @@ namespace BookStoreConsole.Repositories
             }
         }
 
-        public void UpdateBook(Book book, Guid id)
+        public void UpdateBook(Book book)
         {
             using (var result = new BookStoreContext())
             {
-                var bookResponse = result.books.FirstOrDefault(x => x.Id == id);
-                if (bookResponse != null) { bookResponse = book; }
-                _ = result.books.Update(bookResponse);
+                result.Entry(book).State = Microsoft.EntityFrameworkCore.EntityState.Modified;           
                 result.SaveChanges();
             }
         }

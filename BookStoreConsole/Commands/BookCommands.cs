@@ -16,6 +16,12 @@ namespace BookStoreConsole.Commands
         {
             _repository = repository;
         }
+
+        public bool BookIt(Guid Id)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteBook(Guid bookId)
         {
            return _repository.DeleteBook(bookId);
@@ -26,9 +32,9 @@ namespace BookStoreConsole.Commands
             _repository.SaveBook(book);
         }
 
-        public void UpdateBook(Book book, Guid id)
+        public void UpdateBook(Book book)
         {
-            _repository.UpdateBook(book, id);
+            _repository.UpdateBook(book);
         }
     }
 }

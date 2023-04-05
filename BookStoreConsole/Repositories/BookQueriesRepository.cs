@@ -26,5 +26,5 @@ namespace BookStoreConsole.Repositories
                 return result.books.ToList();
             }
         }
-        }
+    }
     }

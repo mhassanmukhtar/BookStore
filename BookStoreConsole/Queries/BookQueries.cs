@@ -19,7 +19,16 @@ namespace BookStoreConsole.Queries
 
         public List<Book> FindAll()
         {
-            return _repository.getBooks();
+            List<Book> books = _repository.getBooks();
+            List<Book> results = new List<Book>();  
+            foreach (Book item in books)
+            {
+                if (item.quantity != 0)
+                {
+                    results.Add(item);
+                }
+            }
+            return results;
         }
 
         public Book FindByID(Guid id)

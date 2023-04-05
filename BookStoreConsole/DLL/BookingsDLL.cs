@@ -28,24 +28,24 @@ namespace BookStoreConsole.DLL
             }
         }
 
-        internal void getBooking()
+        internal void getBooking(Guid id)
         {
             using (var result = new BookStoreContext())
             {
-                var booking = result.bookings.FirstOrDefault(x => x.Id == 1);
+                var booking = result.bookings.FirstOrDefault(x => x.Id == id);
                 Console.WriteLine("Booking Is {0}", booking.Id);
             }
         }
         internal void updateBooking()
         {
-            using (var result = new BookStoreContext())
-            {
-                var booking = result.bookings.FirstOrDefault(x => x.Id == 1);
-                Console.WriteLine("Booking Is {0}", booking.Id);
-                result.bookings.Update(booking);
-                result.SaveChanges();
-                Console.WriteLine("Updated");
-            }
+            //using (var result = new BookStoreContext())
+            //{
+            //    var booking = result.bookings.FirstOrDefault(x => x.Id == 1);
+            //    Console.WriteLine("Booking Is {0}", booking.Id);
+            //    result.bookings.Update(booking);
+            //    result.SaveChanges();
+            //    Console.WriteLine("Updated");
+            //}
         }
 
     }
